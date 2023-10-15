@@ -25,7 +25,7 @@ def change_contact(args, contacts):
 def show_all(args, contacts):
     res = ''
     for contact, phone_number in contacts.items():
-        res = (f"{contact} : {phone_number}") if not res else res + '\n' + (f"{contact} : {phone_number}")
+        res = (f"{contact:>15} : {phone_number:<20}") if not res else res + '\n' + (f"{contact:>15} : {phone_number:<20}")
     return res    
 
 def show_phone(args, contacts):

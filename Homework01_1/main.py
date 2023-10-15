@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from collections import defaultdict
 
-data = [
+users = [
     {"name": "Kaitlyn Espinoza",    "birthday": datetime(1955, 10, 28)},
     {"name": "Cameron Vazquez",     "birthday": datetime(1952, 11, 27)},
     {"name": "Aliza Schmidt",       "birthday": datetime(1956, 7, 27)},
@@ -26,7 +26,7 @@ def create_weekdays_order(today_date):
     return weekdays_order_dict
 
 # определяем интервал дат для празднования
-def dates_for_party(data, start_date):
+def dates_for_party(start_date):
     day_of_week = int(start_date.strftime("%w"))
     if day_of_week == 1:  # понедельник. Нужно не забыть тех, кто в выходные родился
         start_date = start_date - timedelta(days=2)
@@ -73,20 +73,10 @@ def return_result(weekdays_order, group_week):
                 print(f"{wdn:<9} : {line_bearthday_people}")
     
 
-def main():
-    # первоначально код писался от текущего дня включительно. Сегодня прочитал, что от "завтрашнего". Прибавим денек к текущей дате )
-    today_date = datetime.now() + timedelta(days=1)
-    #print(today_date)
-    #today_date = datetime(2023, 10, 13)
+def get_birthdays_per_week(users):
+    today_date = datetime.now()
     weekdays_order = (create_weekdays_order(today_date))
-    #print(weekdays_order, '\n')
-    start_date = dates_for_party(data, today_date)[0]
-    end_date = dates_for_party(data, today_date)[1]
-    party_people = get_party_people(data, start_date, end_date)
-    #print(party_people, '\n')
+    start_date, end_date = dates_for_party(today_date)
+    party_people = get_party_people(users, start_date, end_date)
     group_week = get_birthday_per_week(party_people, start_date, end_date)
-    #print(group_week)
     return_result(weekdays_order, group_week)
-
-if __name__ == "__main__":
-    main()
